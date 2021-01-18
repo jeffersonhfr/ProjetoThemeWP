@@ -11,7 +11,7 @@ function compilaSass(){
   return gulp.src('.lib/scss/**/*.scss')
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
   .pipe(autoprefixer({ cascade: false }))
-  .pipe(gulp.dest('css/'))
+  .pipe(gulp.dest('./'))
   .pipe(browserSync.stream());
 }
 
