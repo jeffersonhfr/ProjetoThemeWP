@@ -22,7 +22,7 @@ function carrega_css()
     wp_register_style('style', get_template_directory_uri() . '/style.css', array(), false, false);
 
      /* O segundo argumento TRUE significa que o script irá carregar no footer, caso deseje carregar no HEAD deixar FALSE o segundo argumento */
-     
+
     // Registrar Style-Add
     wp_register_style('style-add', get_template_directory_uri() . '/css/style-add.css', array(), false, false);
 
