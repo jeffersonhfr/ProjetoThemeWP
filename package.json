@@ -1,0 +1,37 @@
+{
+  "name": "Projeto WordPress",
+  "version": "0.1.1",
+  "description": "PHP, CSS, JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  
+  "author": "Jefferson Rodrigues",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffersonhfr/ProjetoThemeWP/issues"
+  },
+  "homepage": "https://github.com/jeffersonhfr/ProjetoThemeWP#readme",
+  "private": true,
+  "browserslist": [
+    "last 2 versions",
+    ">1%"
+  ],
+  "dependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "gulp-babel": "^8.0.0",
+    "gulp-uglify-es": "^2.0.0"
+  }
+}
