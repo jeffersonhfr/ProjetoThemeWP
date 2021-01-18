@@ -17,6 +17,19 @@ function compilaSass(){
 
 exports.compilasass = compilaSass;
 
+
+function sassAddon(){
+  return gulp
+  .src('.lib/scss-add/**/*.scss')
+  .pipe(concat('style-add.css'))
+  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  .pipe(autoprefixer({ cascade: false }))
+  .pipe(gulp.dest('css/'))
+  .pipe(browserSync.stream());
+}
+
+exports.sassAddon = sassAddon;
+
 function gulpJS(){
   return gulp
   .src('.lib/js/main/*.js')
@@ -60,10 +73,11 @@ exports.browserSync = browser;
 
 function watch(){
   gulp.watch('.lib/scss/**/*.scss', compilaSass);
+  gulp.watch('.lib/scss-add/**/*.scss', sassAddon);
   gulp.watch(['*.html', '*.php']).on('change', browserSync.reload);
   gulp.watch('.lib/js/main/*.js', gulpJS);
   gulp.watch('.lib/js/plugin/*.js', pluginJS);
   gulp.watch('.lib/js/main.js', jsMin);
 }
 exports.watch = watch;
-exports.default = gulp.parallel(watch, browser, compilaSass, gulpJS, pluginJS);
+exports.default = gulp.parallel(watch, browser, compilaSass, gulpJS, pluginJS, sassAddon);

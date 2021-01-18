@@ -1,28 +1,72 @@
 <?php
 
+function carrega_scripts()
+{
+    // Registrar Plugin
+    wp_register_script('plugins', get_template_directory_uri() . '/js/plugins.js', array(), false, true);
+
+    /* O segundo argumento TRUE significa que o script irá carregar no footer, caso deseje carregar no HEAD deixar FALSE o segundo argumento */
+
+    // Registrar Script
+    wp_register_script('scripts', get_template_directory_uri() . '/js/main-min.js', array(), false, true);
+
+    wp_enqueue_script(['plugins', 'scripts']);
+}
+
+add_action('wp_enqueue_scripts', 'carrega_scripts');
+
+
+function carrega_css()
+{
+    // Registrar Style
+    wp_register_style('style', get_template_directory_uri() . '/style.css', array(), false, false);
+
+     /* O segundo argumento TRUE significa que o script irá carregar no footer, caso deseje carregar no HEAD deixar FALSE o segundo argumento */
+     
+    // Registrar Style-Add
+    wp_register_style('style-add', get_template_directory_uri() . '/css/style-add.css', array(), false, false);
+
+
+    wp_enqueue_style(['style', 'style-add']);
+}
+
+add_action('wp_enqueue_scripts', 'carrega_css');
+
+
+// Funções para Limpar o Header
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'start_post_rel_link', 10, 0);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('admin_print_styles', 'print_emoji_styles');
+
+// Habilitar Menus
+add_theme_support('menus');
+
+// Registrar Menu
+function register_my_menu()
+{
+    register_nav_menu('menu-principal', __('Menu Principal'));
+}
+add_action('init', 'register_my_menu');
+
+
+// Custom Images Sizes
+function my_custom_sizes()
+{
+    add_image_size('large', 1400, 380, true);
+    add_image_size('medium', 768, 380, true);
+}
+add_action('after_setup_theme', 'my_custom_sizes');
+
+
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
-
-
-// Array of files to include.
-$understrap_includes = array(
-    '/theme-settings.php',                  // Initialize theme default settings.
-    '/setup.php',                           // Theme setup and custom theme supports.
-    '/widgets.php',                         // Register widget area.
-    '/enqueue.php',                         // Enqueue scripts and styles.
-    '/template-tags.php',                   // Custom template tags for this theme.
-    '/pagination.php',                      // Custom pagination for this theme.
-    '/hooks.php',                           // Custom hooks.
-    '/extras.php',                          // Custom functions that act independently of the theme templates.
-    '/customizer.php',                      // Customizer additions.
-    '/custom-comments.php',                 // Custom Comments file.
-    '/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker. Trying to get deeper navigation? Check out: https://github.com/understrap/understrap/issues/567.
-    '/editor.php',                          // Load Editor functions.
-    '/deprecated.php',                      // Load deprecated functions.
-);
-
-
-
 
 function remove_menus()
 {
@@ -42,7 +86,7 @@ add_action('admin_menu', 'remove_menus');
 
 /* Remove Contact Form 7 Links from dashboard menu items if not admin */
 if (!(current_user_can('administrator'))) {
-/*if (!(current_user_can(''))) {*/
+    /*if (!(current_user_can(''))) {*/
     function remove_wpcf7()
     {
         remove_menu_page('wpcf7');
