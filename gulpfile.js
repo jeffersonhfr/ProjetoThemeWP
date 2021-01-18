@@ -51,9 +51,7 @@ exports.minificajs = jsMin;
 
 function browser(){
   browserSync.init({
-    server:{
-      baseDir:"./"
-    }
+    proxy: "localhost/wp"
   })
 }
 
